@@ -33,9 +33,9 @@ jobs:
             const { owner, repo } = context.repo;
 
             const devBranch = 'main';
-            const mainApprovals = parseInt('1', 10);
+            const mainApprovals = 1;
             const releasePrefix = 'staging/';
-            const releaseApprovals = parseInt('1', 10);
+            const releaseApprovals = 1;
 
             async function upsertRuleset(name, branchPattern, approvals) {
               // Check if ruleset already exists
@@ -73,7 +73,10 @@ jobs:
                     type: 'required_status_checks',
                     parameters: {
                       strict_required_status_checks_policy: false,
-                      required_status_checks: [{ context: 'SDLC Enforce' }],
+                      required_status_checks: [
+                        { context: 'SDLC Enforce' },
+                        { context: 'Build' },
+                      ],
                     },
                   },
                   { type: 'non_fast_forward' },
